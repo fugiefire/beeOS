@@ -52,11 +52,6 @@ else
 	KERN_LD_PLATFORM=elf32-i386
 	CC_FLAGS+= -m32 -mcmodel=kernel
 endif
-ifeq ("$(QEMU_REDIRECT_DEBUGCON)","1")
-	QEMU_OPTIONS+= -debugcon $(QEMU_REDIRECT_DEBUGCON_DEVICE)
-else ifeq ("$(QEMU_REDIRECT_SERIAL)","1")
-	QEMU_OPTIONS+= -serial $(QEMU_REDIRECT_SERIAL_DEVICE)
-endif
 define write_kern_config_h
 	echo "#ifndef _kern_conf_h\n#define _kern_conf_h" > $(KERN_INCLUDE_DIR)/conf.h
 	echo "#define KERN_TARGET_$(KERN_PLATFORM)" >> $(KERN_INCLUDE_DIR)/conf.h
