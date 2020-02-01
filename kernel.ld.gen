@@ -1,0 +1,26 @@
+#include "kernel_inc.gen"
+OUTPUT_FORMAT(KERN_OFORMAT)
+
+SECTIONS {
+    kernel_vaddr = KERN_VADDR;
+    . = KERN_LOAD_ADDR + KERN_VADDR;
+    .kentry ALIGN(4K) : {
+      *(.kentry)
+    }
+    .text ALIGN(4K) : {
+      KEEP(*(.entry))
+      *(.text*)
+    }
+    .rodata ALIGN(4K) : {
+      *(.rodata*)
+    }
+    .data ALIGN(4K) : {
+      *(.data*)
+    }
+    .bss ALIGN(4K) : {
+      bss_begin = .;
+      *(COMMON)
+      *(.bss*)
+      bss_end = .;
+    }
+}
